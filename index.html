@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Student Feedback Template</title>
+
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --ink:#111827;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+      --shadow:0 14px 40px rgba(0,0,0,.10);
+      --radius:18px;
+
+      --a:#16a34a;
+      --b:#2563eb;
+      --c:#d97706;
+      --d:#ea580c;
+      --e:#dc2626;
+      --blank:#9ca3af;
+
+      --aBg:#dcfce7;
+      --bBg:#dbeafe;
+      --cBg:#fef9c3;
+      --dBg:#ffedd5;
+      --eBg:#fee2e2;
+
+      --mathFont:"Cambria Math","STIX Two Math","STIXGeneral","Times New Roman",serif;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      padding:24px;
+    }
+
+    .wrap{
+      max-width:1040px;
+      margin:0 auto;
+    }
+
+    .toolbar,
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .toolbar{
+      padding:18px;
+      margin-bottom:18px;
+      display:grid;
+      gap:14px;
+    }
+
+    .toolbarRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+
+    label{
+      font-size:14px;
+      color:var(--muted);
+      font-weight:700;
+      display:block;
+      margin-bottom:6px;
+    }
+
+    select,button{
+      font:inherit;
+    }
+
+    select{
+      width:100%;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:10px 12px;
+      background:#fff;
+      color:var(--ink);
+    }
+
+    button{
+      border:none;
+      border-radius:12px;
+      padding:10px 14px;
+      background:#111827;
+      color:#fff;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    button.secondary{
+      background:#eef2f7;
+      color:#111827;
+    }
+
+    .card{
+      padding:28px;
+    }
+
+    .sheetTitle{
+      margin:0 0 20px;
+      font-size:30px;
+      line-height:1.1;
+      font-weight:900;
+      letter-spacing:.01em;
+    }
+
+    .header{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:20px;
+      align-items:start;
+      margin-bottom:20px;
+    }
+
+    .headerFields{
+      display:grid;
+      gap:14px;
+    }
+
+    .row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+
+    .field{
+      display:grid;
+      gap:6px;
+    }
+
+    .fieldLabel{
+      font-size:14px;
+      font-weight:800;
+      color:var(--ink);
+    }
+
+    .inputBox{
+      min-height:44px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:#f9fafb;
+      display:flex;
+      align-items:center;
+      padding:10px 12px;
+      font-size:16px;
+      font-weight:600;
+    }
+
+    .gradeBox{
+      font-weight:900;
+    }
+
+    .grade-A{ background:var(--aBg); }
+    .grade-B{ background:var(--bBg); }
+    .grade-C{ background:var(--cBg); }
+    .grade-D{ background:var(--dBg); }
+    .grade-E{ background:var(--eBg); }
+
+    .logoWrap{
+      width:118px;
+      min-height:118px;
+      border:1px solid var(--border);
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      background:#fff;
+      padding:10px;
+    }
+
+    .logoWrap img{
+      max-width:100%;
+      max-height:96px;
+      object-fit:contain;
+      display:block;
+    }
+
+    .section{
+      margin-top:24px;
+    }
+
+    .section h2{
+      margin:0 0 10px;
+      font-size:20px;
+      line-height:1.2;
+    }
+
+    .summaryBox{
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:16px;
+      background:#fafafa;
+      min-height:120px;
+      line-height:1.65;
+    }
+
+    .skillTable{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid var(--border);
+      border-radius:14px;
+      margin-top:8px;
+    }
+
+    .skillTable th,
+    .skillTable td{
+      padding:13px 16px;
+      text-align:left;
+      vertical-align:top;
+      border-bottom:1px solid var(--border);
+    }
+
+    .skillTable th{
+      background:#f8fafc;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:var(--muted);
+      font-weight:800;
+    }
+
+    .skillTable tr:last-child td{ border-bottom:none; }
+
+    .skillTag{
+      display:inline-flex;
+      min-width:34px;
+      height:24px;
+      align-items:center;
+      justify-content:center;
+      padding:0 10px;
+      border-radius:999px;
+      color:#fff;
+      font-weight:800;
+      font-size:13px;
+      background:var(--blank);
+    }
+
+    .tag-A{ background:var(--a); }
+    .tag-B{ background:var(--b); }
+    .tag-C{ background:var(--c); }
+    .tag-D{ background:var(--d); }
+    .tag-E{ background:var(--e); }
+    .tag-blank{ background:var(--blank); }
+
+    .practiceGrid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+      margin-top:10px;
+    }
+
+    .practiceCard{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:14px;
+      background:#fcfcfd;
+      min-height:96px;
+    }
+
+    .practiceCard h3{
+      margin:0 0 8px;
+      font-size:15px;
+      color:var(--muted);
+    }
+
+    .math{
+      font-family:var(--mathFont);
+      font-size:22px;
+      line-height:1.4;
+    }
+
+    .footerNote{
+      margin-top:20px;
+      padding-top:14px;
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .topRightButtons{
+      position:absolute;
+      top:20px;
+      right:20px;
+      display:flex;
+      gap:10px;
+      z-index:999;
+    }
+
+    .blueBtn{
+      border:none;
+      border-radius:10px;
+      padding:10px 14px;
+      background:#2563eb;
+      color:#fff;
+      font-weight:700;
+      cursor:pointer;
+      font-size:13px;
+    }
+
+    @media (max-width:820px){
+      .header,
+      .row,
+      .practiceGrid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media print{
+      @page{ size:A4; margin:12mm; }
+      html, body{
+        width:auto;
+        height:auto;
+        background:#fff !important;
+      }
+      body{
+        padding:0;
+        -webkit-print-color-adjust:exact;
+        print-color-adjust:exact;
+      }
+      .toolbar, .floatingPrompt{ display:none !important; }
+      .wrap{
+        max-width:none;
+        margin:0;
+      }
+      .card{
+        width:100%;
+        box-shadow:none !important;
+        border:none !important;
+        border-radius:0 !important;
+        padding:0;
+        background:#fff !important;
+      }
+      .sheetTitle{
+        font-size:24px;
+        margin-bottom:18px;
+      }
+      .header{
+        grid-template-columns:minmax(0,1fr) 110px;
+        gap:14px;
+        margin-bottom:16px;
+      }
+      .headerFields,
+      .row{
+        gap:10px;
+      }
+      .section{
+        margin-top:16px;
+      }
+      .section h2{
+        font-size:18px;
+        margin-bottom:8px;
+      }
+      .inputBox{
+        min-height:38px;
+        padding:8px 10px;
+        font-size:14px;
+        background:#fff;
+      }
+      .logoWrap{
+        width:110px;
+        min-height:110px;
+        padding:8px;
+      }
+      .logoWrap img{
+        max-height:88px;
+      }
+      .summaryBox{
+        min-height:86px;
+        padding:12px;
+        line-height:1.5;
+      }
+      .skillTable th,
+      .skillTable td{
+        padding:9px 10px;
+        font-size:12px;
+      }
+      .practiceGrid{
+        gap:10px;
+      }
+      .practiceCard{
+        min-height:72px;
+        padding:10px;
+      }
+      .practiceCard h3{
+        font-size:12px;
+        margin-bottom:6px;
+      }
+      .math{
+        font-size:18px;
+      }
+      .footerNote{
+        margin-top:14px;
+        padding-top:10px;
+        font-size:11px;
+      }
+      .practiceCard,
+      .summaryBox,
+      .skillTable,
+      .skillTable th,
+      .skillTable td,
+      .inputBox,
+      .logoWrap{
+        break-inside:avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+  <div class="topRightButtons">
+    <button id="promptBtn" class="blueBtn">Master Prompt</button>
+    <button id="helpBtn" class="blueBtn">How to use</button>
+  </div>
+    <div class="toolbar">
+      <div class="toolbarRow">
+        <div style="flex:1 1 280px; min-width:240px;">
+          <label for="studentSelect">Select student</label>
+          <select id="studentSelect"></select>
+        </div>
+        <div>
+          <button id="printBtn">Print / Save PDF</button>
+        </div>
+        <div>
+          <button id="randomBtn" class="secondary">Load sample student</button>
+        </div>
+      </div>
+      <div style="color:var(--muted); font-size:14px; line-height:1.5;">
+        Edit the <strong>students</strong> array in the script to add your class list, grades, comments and practice examples. Then select a student and print an individual feedback sheet.
+      </div>
+    </div>
+
+    <section class="card" id="report">
+      <h1 class="sheetTitle">CHHS - Mathematics Feedback Sheet</h1>
+      <div class="header">
+        <div class="headerFields">
+          <div class="row">
+            <div class="field">
+              <div class="fieldLabel">Student Name</div>
+              <div class="inputBox" id="studentName"></div>
+            </div>
+            <div class="field">
+              <div class="fieldLabel">Class</div>
+              <div class="inputBox" id="classText"></div>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="fieldLabel">Outcome</div>
+            <div class="inputBox" id="outcomeText"></div>
+          </div>
+
+          <div class="field" style="max-width:220px;">
+            <div class="fieldLabel">Overall Grade</div>
+            <div class="inputBox gradeBox" id="overallGradeText"></div>
+          </div>
+        </div>
+
+        <div class="logoWrap">
+          <img src="chhs-logo.png" alt="School logo" />
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>What you can do</h2>
+        <div class="summaryBox" id="strengthComment"></div>
+      </div>
+
+      <div class="section">
+        <h2>Achievement by skill area</h2>
+        <table class="skillTable">
+          <thead>
+            <tr>
+              <th style="width:55%;">Skill area</th>
+              <th style="width:15%;">Grade</th>
+              <th style="width:30%;">What this means</th>
+            </tr>
+          </thead>
+          <tbody id="skillTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h2>To improve</h2>
+        <div class="summaryBox" id="nextStep"></div>
+      </div>
+
+      <div class="section">
+        <h2>Practice questions like these</h2>
+        <div class="practiceGrid" id="practiceGrid"></div>
+      </div>
+
+      <div class="footerNote">
+        Keep practicing a small number of questions regularly. Focus on showing working and checking whether your answer makes sense.
+      </div>
+    </section>
+  </div>
+
+  
+
+  <script>
+    const skillMeaning = {
+      A: 'Shows a very strong understanding and applies skills independently in unfamiliar problems.',
+      B: 'Shows a strong understanding and applies skills in most contexts.',
+      C: 'Shows sound understanding in familiar questions.',
+      D: 'Shows partial understanding and needs support with similar questions.',
+      E: 'Is beginning to develop this skill and needs guided practice.',
+      '': 'No grade entered.'
+    };
+
+    const students = [
+      {
+        name:'',
+        className:'',
+        outcome:'',
+        overall:'',
+        strengths:'',
+        nextStep:'',
+        skills:{},
+        practice:['','','','']
+      },
+      {
+        name:'Sample Student',
+        className:'',
+        outcome:'Computation with Integers - compares, orders and calculates with integers to solve problems',
+        overall:'D',
+        strengths:'You can begin to work with integers in familiar questions and are developing confidence with simple integer calculations.',
+        nextStep:'Work on single operation integer problems, especially where negatives are involved.',
+        skills:{
+          'Place integer on number line':'D',
+          'Addition/subtraction integers':'D',
+          'Combining signs':'D',
+          'Inequalities':'D',
+          'Order of operations':'D',
+          'Non-routine problems':''
+        },
+        practice:[
+          '-4 + 7',
+          '5 - 12',
+          '-3 - 6',
+          'Place -5, 0, 3 and -2 on a number line'
+        ]
+      }
+    ];
+
+    const promptText = String.raw`You are helping generate student feedback reports for a Stage 4 Mathematics class.
+
+I will provide:
+1. A spreadsheet of student achievement data
+2. An HTML feedback template
+
+TASK
+
+For each student in the spreadsheet, generate a fully populated version of the HTML template.
+
+Return one single HTML file that:
+- contains all students
+- has one page per student
+- includes page breaks between students for printing
+
+DATA STRUCTURE
+
+The spreadsheet contains:
+- First Name
+- Surname
+- Skill area grades:
+  - Place integer on number line
+  - Addition/subtraction integers
+  - Combining signs
+  - Inequalities
+  - Order of operations
+  - Non-routine problems
+- Overall grade
+- Next step (optional teacher comment)
+
+Ignore blank rows.
+
+REQUIREMENTS
+
+1. Student details
+- Combine first name + surname
+- Insert into the template
+- Include class and outcome if provided, otherwise:
+  Outcome: "Compares, orders and calculates with integers to solve problems."
+
+2. Skill table (DYNAMIC)
+- Create a row for EACH skill area in the spreadsheet
+- Insert:
+  - Skill name
+  - Grade (A–E)
+  - "What this means" description
+
+Use these descriptions:
+- A → Shows a very strong understanding and applies skills independently in unfamiliar problems.
+- B → Shows a strong understanding and applies skills in most contexts.
+- C → Shows sound understanding in familiar questions.
+- D → Shows partial understanding and needs support with similar questions.
+- E → Is beginning to develop this skill and needs guided practice.
+- Blank → No grade entered
+
+3. "What you can do" (AI GENERATED)
+- Write 1–3 sentences
+- Use a positive tone
+- Base it on overall grade and strongest skill areas
+- Use parent-friendly language
+- Avoid jargon
+
+4. "To improve" (PRIORITY-BASED)
+- Identify the lowest 1–2 skill areas
+- Focus only on those
+- If a "Next step" column is provided, use it as the base and rewrite it clearly and professionally
+- Keep to 1–2 sentences
+- Make it specific and actionable
+
+5. Practice questions (CRITICAL)
+- Generate exactly 4 practice examples based on weakest areas
+- If weakness = addition/subtraction, include questions like 5 - 12, -3 + 8, -6 - 4
+- If weakness = combining signs, include -(-5), +(-3), -2 × -4
+- If weakness = inequalities, include ordering/comparing negatives
+- If weakness = order of operations, include 2–3 step expressions
+- If weakness = number line, include placement questions
+- If weakness = non-routine, include simple word problems
+- Ensure questions are short, fit inside template boxes, and use clean mathematical formatting
+
+6. HTML RULES (IMPORTANT)
+- Use the provided template exactly
+- Do not redesign layout
+- Fill header fields, summary box, table rows, improvement section, and practice cards
+- Replace placeholder table rows with real rows
+- Keep styling intact
+- Add <div style="page-break-after: always;"></div> between each student
+
+7. TONE
+- Clear
+- Professional
+- Parent-friendly
+- Encouraging but honest
+- No slang
+
+OUTPUT
+- Return one complete HTML file
+- Fully populated
+- Ready to print`;
+
+    const studentSelect = document.getElementById('studentSelect');
+    const studentName = document.getElementById('studentName');
+    const classText = document.getElementById('classText');
+    const outcomeText = document.getElementById('outcomeText');
+    const overallGradeText = document.getElementById('overallGradeText');
+    const strengthComment = document.getElementById('strengthComment');
+    const skillTableBody = document.getElementById('skillTableBody');
+    const nextStep = document.getElementById('nextStep');
+    const practiceGrid = document.getElementById('practiceGrid');
+    const printBtn = document.getElementById('printBtn');
+    const randomBtn = document.getElementById('randomBtn');
+    const promptBtn = document.getElementById('promptBtn');
+    const helpBtn = document.getElementById('helpBtn');
+
+    function populateSelect(){
+      studentSelect.innerHTML = '';
+      students.forEach((student, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = student.name || 'Blank Template';
+        studentSelect.appendChild(option);
+      });
+    }
+
+    function tagClass(grade){
+      const g = (grade || '').toUpperCase();
+      return g ? `tag-${g}` : 'tag-blank';
+    }
+
+    function renderStudent(index){
+      const s = students[index];
+      if(!s) return;
+
+      studentName.textContent = s.name || '';
+      classText.textContent = s.className || '';
+      outcomeText.textContent = s.outcome || '';
+      overallGradeText.textContent = s.overall || '';
+      overallGradeText.className = 'inputBox gradeBox';
+      const overall = (s.overall || '').toUpperCase();
+      if(['A','B','C','D','E'].includes(overall)) {
+        overallGradeText.classList.add(`grade-${overall}`);
+      }
+      strengthComment.textContent = s.strengths || '';
+      nextStep.textContent = s.nextStep || '';
+
+      skillTableBody.innerHTML = '';
+      const entries = Object.entries(s.skills || {});
+      if(entries.length === 0){
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td></td>
+          <td><span class="skillTag tag-blank"></span></td>
+          <td></td>
+        `;
+        skillTableBody.appendChild(tr);
+      } else {
+        entries.forEach(([skill, grade]) => {
+          const g = (grade || '').toUpperCase();
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${skill}</td>
+            <td><span class="skillTag ${tagClass(g)}">${g || '—'}</span></td>
+            <td>${skillMeaning[g || ''] || ''}</td>
+          `;
+          skillTableBody.appendChild(tr);
+        });
+      }
+
+      practiceGrid.innerHTML = '';
+      const practice = (s.practice && s.practice.length) ? s.practice : ['','','',''];
+      practice.forEach((q, i) => {
+        const card = document.createElement('div');
+        card.className = 'practiceCard';
+        card.innerHTML = `
+          <h3>Practice ${i + 1}</h3>
+          <div class="math">${q || ''}</div>
+        `;
+        practiceGrid.appendChild(card);
+      });
+    }
+
+    function openPrompt(){
+      const newWindow = window.open('', '_blank');
+      if(!newWindow) return;
+      const escaped = promptText
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+      newWindow.document.write(`
+        <!doctype html>
+        <html lang="en">
+        <head>
+          <meta charset="utf-8" />
+          <title>Master Prompt</title>
+          <style>
+            body{font-family:Arial,Helvetica,sans-serif;padding:24px;line-height:1.6;color:#111827;}
+            h2{margin-top:0;}
+            pre{white-space:pre-wrap;font-size:14px;background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:16px;}
+            button{border:none;border-radius:10px;padding:10px 14px;background:#111827;color:#fff;font-weight:700;cursor:pointer;margin-bottom:16px;}
+          </style>
+        </head>
+        <body>
+          <button onclick="navigator.clipboard.writeText(document.getElementById('prompt').innerText)">Copy Prompt</button>
+          <h2>Master Prompt</h2>
+          <pre id="prompt">${escaped}</pre>
+        </body>
+        </html>
+      `);
+      newWindow.document.close();
+    }
+
+    studentSelect.addEventListener('change', e => renderStudent(Number(e.target.value)));
+    printBtn.addEventListener('click', () => window.print());
+    randomBtn.addEventListener('click', () => {
+      studentSelect.value = 1;
+      renderStudent(1);
+    });
+
+    window.addEventListener('beforeprint', () => {
+      const selected = Number(studentSelect.value || 0);
+      renderStudent(selected);
+    });
+    promptBtn.addEventListener('click', openPrompt);
+
+    function openHelp(){
+      const helpText = `HOW TO USE THIS TEMPLATE
+
+STEP 1
+Prepare your spreadsheet with the following columns:
+- First Name
+- Surname
+- Skill area grades
+- Overall grade
+- Next step (optional)
+
+STEP 2
+Open ChatGPT and upload:
+- This HTML template
+- Your spreadsheet
+
+STEP 3
+Use the Master Prompt (click the button above to copy it)
+
+STEP 4
+ChatGPT will generate a completed HTML file
+
+STEP 5
+Open that file and click Print / Save PDF
+
+NOTES
+- Keep feedback focused on 1–2 improvement areas
+- Ensure practice questions match weakest skills
+- Use clear, student-friendly language`;
+
+      const newWindow = window.open('', '_blank');
+      if(!newWindow) return;
+
+      const escaped = helpText
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+      newWindow.document.write(`
+        <html>
+        <head>
+          <title>How to use</title>
+          <style>
+            body{font-family:Arial;padding:24px;line-height:1.6;}
+            pre{white-space:pre-wrap;background:#f8fafc;padding:16px;border-radius:12px;border:1px solid #e5e7eb;}
+          </style>
+        </head>
+        <body>
+          <h2>Template Instructions</h2>
+          <pre>${escaped}</pre>
+        </body>
+        </html>
+      `);
+      newWindow.document.close();
+    }
+
+    helpBtn.addEventListener('click', openHelp);
+
+    populateSelect();
+    renderStudent(0);
+  </script>
+</body>
+</html>
